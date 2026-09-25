@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-main: #06080d;
+    --bg-surface: #0a0f1d;
+    --bg-elevated: #10172c;
+    --border-subtle: rgba(255, 255, 255, 0.07);
+    --border-highlight: rgba(34, 211, 238, 0.3);
+    --cyan-accent: #06b6d4;
+    --cyan-glow: #22d3ee;
+    --violet-accent: #8b5cf6;
+    --blue-accent: #3b82f6;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: rgba(6, 182, 212, 0.25);
+    color: #ffffff;
+  }
+}
+
+/* Blueprint & Engineering grid patterns */
+.tech-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.tech-dots-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+}
+
+/* Controlled glow effects */
+.glow-cyan-sm {
+  box-shadow: 0 0 20px -5px rgba(6, 182, 212, 0.35);
+}
+
+.glow-cyan-md {
+  box-shadow: 0 0 35px -8px rgba(6, 182, 212, 0.45);
+}
+
+.glow-violet-sm {
+  box-shadow: 0 0 20px -5px rgba(139, 92, 246, 0.35);
+}
+
+.tech-border {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tech-border-glow {
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  box-shadow: 0 0 25px -10px rgba(6, 182, 212, 0.25);
+}
+
+/* Custom technical scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #06080d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a2336;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2a3854;
+}

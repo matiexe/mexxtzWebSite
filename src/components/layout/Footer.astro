@@ -1,0 +1,86 @@
+---
+import { SITE_CONFIG } from '../../config/site';
+---
+
+<footer class="w-full border-t border-white/10 bg-[#04060a] relative z-20 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-white/5">
+      
+      <!-- Brand & Tagline -->
+      <div class="md:col-span-2 space-y-3">
+        <a href="#inicio" class="flex items-center space-x-2.5">
+          <div class="w-7 h-7 rounded bg-[#0a1122] border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M4 19V5l8 9 8-9v14" />
+            </svg>
+          </div>
+          <span class="font-mono font-bold text-base text-white">
+            mexxtz<span class="text-cyan-400">.dev</span>
+          </span>
+        </a>
+
+        <p class="text-xs text-slate-400 font-mono tracking-wide">
+          {SITE_CONFIG.tagline}
+        </p>
+
+        <p class="text-xs text-slate-500 max-w-sm leading-relaxed">
+          Estudio tecnológico independiente. Desarrollo de software a medida, automatizaciones e inteligencia artificial aplicada a resultados.
+        </p>
+      </div>
+
+      <!-- Quick Nav Links -->
+      <div>
+        <h4 class="text-xs font-mono font-bold uppercase text-slate-300 mb-3 tracking-wider">
+          Navegación
+        </h4>
+        <ul class="space-y-2 text-xs font-mono">
+          <li><a href="#inicio" class="text-slate-400 hover:text-cyan-300 transition-colors">Inicio</a></li>
+          <li><a href="#servicios" class="text-slate-400 hover:text-cyan-300 transition-colors">Servicios</a></li>
+          <li><a href="#proyectos" class="text-slate-400 hover:text-cyan-300 transition-colors">Proyectos</a></li>
+          <li><a href="#precios" class="text-slate-400 hover:text-cyan-300 transition-colors">Precios</a></li>
+          <li><a href="#contacto" class="text-slate-400 hover:text-cyan-300 transition-colors">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Networks -->
+      <div>
+        <h4 class="text-xs font-mono font-bold uppercase text-slate-300 mb-3 tracking-wider">
+          Conectar
+        </h4>
+        <ul class="space-y-2 text-xs font-mono">
+          <li>
+            <a href={SITE_CONFIG.social.github} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors flex items-center space-x-2">
+              <span>GitHub</span>
+            </a>
+          </li>
+          <li>
+            <a href={SITE_CONFIG.social.linkedin} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors flex items-center space-x-2">
+              <span>LinkedIn</span>
+            </a>
+          </li>
+          <li>
+            <a href={SITE_CONFIG.social.instagram} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors flex items-center space-x-2">
+              <span>Instagram</span>
+            </a>
+          </li>
+          <li>
+            <a href={`mailto:${SITE_CONFIG.social.email}`} class="text-slate-400 hover:text-cyan-300 transition-colors flex items-center space-x-2">
+              <span>{SITE_CONFIG.social.email}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-slate-600 gap-2">
+      <div>
+        © 2026 mexxtz.dev · Todos los derechos reservados.
+      </div>
+      <div class="text-[11px] text-slate-500">
+        Diseñado & construido con código real en Astro + React
+      </div>
+    </div>
+  </div>
+</footer>

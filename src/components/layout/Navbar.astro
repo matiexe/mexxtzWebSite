@@ -1,0 +1,134 @@
+---
+import { SITE_CONFIG } from '../../config/site';
+---
+
+<header
+  id="main-navbar"
+  class="sticky top-0 z-40 w-full transition-all duration-300 border-b border-white/[0.06] bg-[#06080d]/80 backdrop-blur-xl"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+    <!-- Brand Logo -->
+    <a href="#inicio" class="flex items-center space-x-3 group">
+      <div class="w-9 h-9 rounded-lg bg-[#0a1122] border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:border-cyan-400/80 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19V5l8 9 8-9v14" />
+        </svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="font-mono font-bold text-base sm:text-lg tracking-tight text-white group-hover:text-cyan-300 transition-colors">
+          mexxtz<span class="text-cyan-400">.dev</span>
+        </span>
+        <span class="text-[9px] font-mono text-slate-500 tracking-wider -mt-1 hidden sm:block">STUDIO & ENGINEERING</span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="hidden lg:flex items-center space-x-1">
+      {SITE_CONFIG.navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="hidden sm:flex items-center space-x-3">
+      <a
+        href="#contacto"
+        class="relative inline-flex items-center justify-center px-4 py-2 rounded-xl text-xs font-semibold text-slate-950 bg-gradient-to-r from-cyan-400 to-cyan-300 hover:from-cyan-300 hover:to-cyan-200 transition-all shadow-md shadow-cyan-950/40 hover:shadow-cyan-500/20 hover:scale-[1.02] active:scale-[0.98]"
+      >
+        <span>Solicitar presupuesto</span>
+      </a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <div class="flex lg:hidden items-center space-x-2">
+      <a
+        href="#contacto"
+        class="text-[11px] font-semibold px-3 py-1.5 rounded-lg bg-cyan-400 text-slate-950 sm:hidden"
+      >
+        Presupuesto
+      </a>
+      <button
+        id="mobile-menu-toggle"
+        type="button"
+        aria-label="Abrir menú"
+        class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.05] transition-colors"
+      >
+        <svg id="menu-icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+        <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div
+    id="mobile-menu-drawer"
+    class="hidden lg:hidden px-4 pt-2 pb-6 border-b border-white/10 bg-[#070b16]/95 backdrop-blur-2xl"
+  >
+    <div class="space-y-1">
+      {SITE_CONFIG.navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="mobile-nav-link block px-3 py-2.5 rounded-lg text-sm font-mono text-slate-300 hover:text-cyan-300 hover:bg-white/[0.04]"
+        >
+          {link.label}
+        </a>
+      ))}
+      <div class="pt-4 mt-2 border-t border-white/10">
+        <a
+          href="#contacto"
+          class="mobile-nav-link w-full flex items-center justify-center py-3 rounded-xl bg-cyan-400 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-950"
+        >
+          Solicitar presupuesto
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggleBtn = document.getElementById('mobile-menu-toggle');
+  const drawer = document.getElementById('mobile-menu-drawer');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+  const navbar = document.getElementById('main-navbar');
+
+  toggleBtn?.addEventListener('click', () => {
+    const isClosed = drawer?.classList.contains('hidden');
+    if (isClosed) {
+      drawer?.classList.remove('hidden');
+      iconOpen?.classList.add('hidden');
+      iconClose?.classList.remove('hidden');
+    } else {
+      drawer?.classList.add('hidden');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+    }
+  });
+
+  mobileLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      drawer?.classList.add('hidden');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+    });
+  });
+
+  // Dynamic scroll styling
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      navbar?.classList.add('bg-[#06080d]/95', 'shadow-2xl', 'border-white/10');
+    } else {
+      navbar?.classList.remove('bg-[#06080d]/95', 'shadow-2xl');
+    }
+  });
+</script>

@@ -1,0 +1,108 @@
+---
+import { SERVICES } from '../../config/site';
+---
+
+<section id="servicios" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-white/5 relative">
+  <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/[0.03] border border-cyan-500/20 text-cyan-400 font-mono text-xs">
+      <span>SERVICIOS & CAPACIDADES TÉCNICAS</span>
+    </div>
+
+    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+      Soluciones a medida para cada necesidad.
+    </h2>
+
+    <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+      Desde una landing page hasta un sistema complejo, transformamos problemas reales en soluciones digitales.
+    </p>
+  </div>
+
+  <!-- Cards Grid (5 Cards: 3 on top row, 2 centered or balanced on bottom) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {SERVICES.map((srv, index) => (
+      <div
+        class={`group relative rounded-2xl p-6 sm:p-7 border border-white/10 bg-[#080d19]/80 hover:bg-[#0c1424] hover:border-cyan-500/40 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-lg ${
+          index === 3 ? 'md:col-span-1 lg:col-span-1' : ''
+        } ${index === 4 ? 'md:col-span-2 lg:col-span-2' : ''}`}
+      >
+        <!-- Blueprint subtle corner crosshair -->
+        <span class="absolute top-2.5 right-3 font-mono text-[10px] text-slate-600 group-hover:text-cyan-400 transition-colors">
+          {srv.code}
+        </span>
+
+        <div>
+          <!-- Icon & Header -->
+          <div class="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-cyan-400 mb-6 group-hover:scale-110 group-hover:border-cyan-400/50 group-hover:bg-cyan-950/30 transition-all">
+            {srv.id === 'web-dev' && (
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            )}
+            {srv.id === 'landing' && (
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+            )}
+            {srv.id === 'automation' && (
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+            )}
+            {srv.id === 'ai-solutions' && (
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            )}
+            {srv.id === 'maintenance' && (
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            )}
+          </div>
+
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
+            {srv.title}
+          </h3>
+
+          <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
+            {srv.description}
+          </p>
+
+          <ul class="space-y-1.5 mb-6 text-xs text-slate-500 font-mono">
+            {srv.features.map((f) => (
+              <li class="flex items-center space-x-1.5">
+                <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+          <div class="flex flex-col">
+            <span class="text-[10px] font-mono text-slate-500">Inversión estimada:</span>
+            <span class="text-sm font-mono font-bold text-cyan-300">
+              {srv.startingPrice}
+            </span>
+          </div>
+
+          <a
+            href="#contacto"
+            class="w-8 h-8 rounded-lg bg-white/[0.04] group-hover:bg-cyan-400 group-hover:text-slate-950 text-slate-400 flex items-center justify-center transition-all"
+            aria-label={`Consultar por ${srv.title}`}
+          >
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="mt-8 text-center">
+    <p class="text-xs font-mono text-slate-500">
+      * Los precios indicados son orientativos. El costo final depende de la complejidad técnica y alcance específico acordado.
+    </p>
+  </div>
+</section>

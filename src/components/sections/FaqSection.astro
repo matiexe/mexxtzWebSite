@@ -1,0 +1,21 @@
+---
+import FaqAccordion from '../islands/FaqAccordion';
+---
+
+<section id="faq" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-white/5 relative">
+  <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/[0.03] border border-cyan-500/20 text-cyan-400 font-mono text-xs">
+      <span>DUDAS FRECUENTES</span>
+    </div>
+
+    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+      Preguntas Frecuentes
+    </h2>
+
+    <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+      Respuestas directas a las inquietudes más comunes antes de iniciar un desarrollo juntos.
+    </p>
+  </div>
+
+  <FaqAccordion client:visible />
+</section>
