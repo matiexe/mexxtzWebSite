@@ -1,115 +1,239 @@
 ---
 import { REAL_PROJECTS } from '../../config/site';
+
+const categories = ['Todos', 'FinTech & IA', 'SaaS & Herramientas', 'Portales & Gestión'];
 ---
 
 <section id="proyectos" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-[var(--border-subtle)] relative">
-  <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+  <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
     <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[var(--bg-surface-elevated)] border border-cyan-500/20 text-cyan-500 font-mono text-xs">
-      <span>CASOS REALES EN PRODUCCIÓN</span>
+      <span>PROYECTOS Y SISTEMAS REALES EN PRODUCCIÓN</span>
     </div>
 
     <h2 class="text-3xl sm:text-4xl font-extrabold text-[var(--text-primary)] tracking-tight">
-      Algunos trabajos recientes
+      Trabajos realizados
     </h2>
 
     <p class="text-[var(--text-secondary)] text-sm sm:text-base leading-relaxed">
-      Sistemas y plataformas reales construidos a medida con arquitecturas robustas y escalables.
+      Sistemas, plataformas interactivas y herramientas digitales en producción. Desarrollados a medida con código limpio, alta velocidad y arquitecturas escalables.
     </p>
+
+    {/* Filtro por Categorías */}
+    <div class="flex flex-wrap items-center justify-center gap-2 pt-4">
+      {categories.map((cat, idx) => (
+        <button
+          type="button"
+          data-filter-btn={cat}
+          class={`filter-tab px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer border ${
+            idx === 0
+              ? 'active bg-cyan-500/20 border-cyan-500/50 text-cyan-600 dark:text-cyan-300 font-semibold'
+              : 'border-[var(--border-subtle)] bg-[var(--bg-surface-elevated)] text-[var(--text-secondary)] hover:border-cyan-500/30 hover:text-[var(--text-primary)]'
+          }`}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-    {REAL_PROJECTS.map((project) => (
-      <div class="group relative rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-cyan-500/40 transition-all duration-300 overflow-hidden shadow-xl flex flex-col justify-between">
-        
-        <!-- Technical Mockup Header/Viewport -->
-        <div class="relative bg-[var(--code-bg)] border-b border-[var(--border-subtle)] p-5 sm:p-6 overflow-hidden">
-          {/* Blueprint corner crosshairs */}
-          <div class="absolute top-2 left-2 text-[9px] font-mono text-[var(--text-muted)]">+</div>
-          <div class="absolute top-2 right-2 text-[9px] font-mono text-[var(--text-muted)]">+</div>
+  <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+    {REAL_PROJECTS.map((project) => {
+      // Categorization for filtering
+      let filterGroup = 'Portales & Gestión';
+      if (project.id === 'open-bcra' || project.id === 'iiggapp') {
+        filterGroup = 'FinTech & IA';
+      } else if (project.id === 'markdownflow') {
+        filterGroup = 'SaaS & Herramientas';
+      } else {
+        filterGroup = 'Portales & Gestión';
+      }
 
-          {/* Browser-like window header */}
-          <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/10 font-mono text-xs">
-            <div class="flex items-center space-x-2">
-              <span class="w-2 h-2 rounded-full bg-red-500/70"></span>
-              <span class="w-2 h-2 rounded-full bg-yellow-500/70"></span>
-              <span class="w-2 h-2 rounded-full bg-emerald-500/70"></span>
-              <span class="text-slate-300 ml-2">{project.name.toLowerCase()}.app</span>
+      const domainName = project.liveUrl.replace('https://', '').replace(/\/$/, '');
+
+      return (
+        <div
+          data-project-item
+          data-category={filterGroup}
+          class="project-card group relative rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-cyan-500/40 transition-all duration-300 overflow-hidden shadow-xl flex flex-col justify-between"
+        >
+          {/* Technical Browser Window Viewport Header */}
+          <div class="relative bg-[var(--code-bg)] border-b border-[var(--border-subtle)] p-4 sm:p-5 overflow-hidden">
+            {/* Blueprint corner crosshairs */}
+            <div class="absolute top-2 left-2 text-[9px] font-mono text-[var(--text-muted)] pointer-events-none">+</div>
+            <div class="absolute top-2 right-2 text-[9px] font-mono text-[var(--text-muted)] pointer-events-none">+</div>
+
+            {/* Window control bar */}
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10 font-mono text-xs">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-slate-300 hover:text-cyan-400 ml-2 inline-flex items-center space-x-1 transition-colors text-[11px]"
+                  title={`Visitar ${domainName}`}
+                >
+                  <span>{domainName}</span>
+                  <svg class="w-3 h-3 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              </div>
+              <span class="text-emerald-400 text-[10px] px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-800/40">
+                {project.status}
+              </span>
             </div>
-            <span class="text-emerald-400 text-[10px] px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-800/40">
-              {project.status}
-            </span>
+
+            {/* Real Screenshot Preview Frame */}
+            <div class="relative rounded-xl overflow-hidden border border-white/10 bg-[#080d1a] group/img">
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block relative overflow-hidden"
+              >
+                <img
+                  src={project.image}
+                  alt={`Captura de pantalla de ${project.name}`}
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-auto object-cover object-top aspect-[16/10] transition-transform duration-500 group-hover/img:scale-[1.03]"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4">
+                  <span class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-cyan-500 text-slate-950 font-mono font-bold text-xs shadow-lg">
+                    <span>Abrir sitio en vivo</span>
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                  <span class="text-[10px] font-mono text-slate-200 bg-black/70 px-2 py-1 rounded">
+                    {project.category}
+                  </span>
+                </div>
+              </a>
+            </div>
           </div>
 
-          <!-- Dynamic Architectural Mockup Canvas -->
-          <div class="rounded-xl bg-[#080d1a] border border-white/10 p-4 font-mono text-xs space-y-3">
-            <div class="flex items-center justify-between text-slate-400 text-[11px] pb-2 border-b border-white/5">
-              <span>MÓDULO: {project.code}</span>
-              <span class="text-cyan-400 font-semibold">{project.category}</span>
-            </div>
-
-            <div class="p-3 rounded-lg bg-black/50 border border-white/5 space-y-1.5">
-              <div class="flex items-center justify-between text-slate-200 text-xs font-semibold">
-                <span>{project.tagline}</span>
+          {/* Project Details Body */}
+          <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-6">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono font-semibold text-cyan-500">
+                  {project.code} · {project.category}
+                </span>
+                <span class="text-[11px] font-mono text-[var(--text-muted)]">mexxtz.dev</span>
               </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 text-[10px] text-slate-400">
-                {project.metrics.map((m) => (
-                  <div class="flex items-center space-x-1.5">
-                    <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
-                    <span>{m}</span>
-                  </div>
+
+              <h3 class="text-xl sm:text-2xl font-bold text-[var(--text-primary)] group-hover:text-cyan-500 transition-colors mb-2">
+                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                  {project.name}
+                </a>
+              </h3>
+
+              <p class="text-xs sm:text-sm font-medium text-[var(--text-primary)] mb-3">
+                {project.tagline}
+              </p>
+
+              <p class="text-[var(--text-secondary)] text-xs sm:text-sm leading-relaxed mb-5">
+                {project.description}
+              </p>
+
+              {/* Technical Metrics */}
+              <div class="p-3.5 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] space-y-2 mb-4">
+                <div class="text-[10px] font-mono uppercase tracking-wider text-[var(--text-muted)]">
+                  Métricas & Arquitectura:
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[var(--text-secondary)]">
+                  {project.metrics.map((m) => (
+                    <div class="flex items-center space-x-2">
+                      <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
+                      <span>{m}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tech Stack Badges */}
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                {project.technologies.map((tech) => (
+                  <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-[var(--bg-surface-elevated)] text-[var(--text-secondary)] border border-[var(--border-subtle)] group-hover:border-cyan-500/30 transition-colors">
+                    {tech}
+                  </span>
                 ))}
               </div>
             </div>
+
+            {/* Bottom Actions */}
+            <div class="pt-5 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row items-center justify-between gap-3">
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono text-xs transition-colors shadow-md"
+              >
+                <span>Visitar {domainName}</span>
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+
+              <a
+                href="#contacto"
+                class="inline-flex items-center space-x-1.5 text-xs font-mono font-medium text-[var(--text-muted)] hover:text-cyan-500 transition-colors"
+              >
+                <span>Consultar desarrollo similar</span>
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
-
-        <!-- Project Details Body -->
-        <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-6">
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="text-xl font-bold text-[var(--text-primary)] group-hover:text-cyan-500 transition-colors">
-                {project.name}
-              </h3>
-              <span class="text-xs font-mono text-[var(--text-muted)]">{project.category}</span>
-            </div>
-
-            <p class="text-[var(--text-secondary)] text-sm leading-relaxed mb-5">
-              {project.description}
-            </p>
-
-            <!-- Stack Badges -->
-            <div class="flex flex-wrap gap-2 pt-2">
-              {project.technologies.map((tech) => (
-                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-[var(--bg-surface-elevated)] text-[var(--text-secondary)] border border-[var(--border-subtle)] group-hover:border-cyan-500/30 transition-colors">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div class="pt-5 border-t border-[var(--border-subtle)] flex items-center justify-between">
-            <span class="text-xs font-mono text-[var(--text-muted)]">
-              Desarrollo integral mexxtz.dev
-            </span>
-
-            <a
-              href="#contacto"
-              class="inline-flex items-center space-x-1.5 text-xs font-mono font-medium text-cyan-500 hover:text-cyan-400 transition-colors"
-            >
-              <span>Consultar arquitectura similar</span>
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    ))}
+      );
+    })}
   </div>
 
-  <div class="mt-8 p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] text-center max-w-xl mx-auto">
-    <p class="text-xs font-mono text-[var(--text-secondary)]">
-      * Mostramos únicamente proyectos y clientes reales. ¿Tenés un requerimiento específico con otra tecnología? Evaluamos tu caso.
+  <div class="mt-12 p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] text-center max-w-2xl mx-auto shadow-md">
+    <p class="text-xs sm:text-sm font-mono text-[var(--text-secondary)]">
+      ⚡ Todos los proyectos presentados son clientes y aplicaciones reales en producción. ¿Necesitás una solución específica con otra tecnología o API? Diseñamos la arquitectura a la medida de tu requerimiento.
     </p>
   </div>
 </section>
+
+<script>
+  // Interactive Category Filter Logic
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-filter-btn]');
+  const projectCards = document.querySelectorAll<HTMLElement>('[data-project-item]');
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const selectedCategory = btn.getAttribute('data-filter-btn');
+
+      // Update active tab styles
+      filterButtons.forEach((b) => {
+        b.classList.remove('active', 'bg-cyan-500/20', 'border-cyan-500/50', 'text-cyan-600', 'dark:text-cyan-300', 'font-semibold');
+        b.classList.add('border-[var(--border-subtle)]', 'bg-[var(--bg-surface-elevated)]', 'text-[var(--text-secondary)]');
+      });
+
+      btn.classList.remove('border-[var(--border-subtle)]', 'bg-[var(--bg-surface-elevated)]', 'text-[var(--text-secondary)]');
+      btn.classList.add('active', 'bg-cyan-500/20', 'border-cyan-500/50', 'text-cyan-600', 'dark:text-cyan-300', 'font-semibold');
+
+      // Filter project cards
+      projectCards.forEach((card) => {
+        const cardCategory = card.getAttribute('data-category');
+        if (selectedCategory === 'Todos' || cardCategory === selectedCategory) {
+          card.style.display = 'flex';
+          card.classList.add('animate-in', 'fade-in');
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
