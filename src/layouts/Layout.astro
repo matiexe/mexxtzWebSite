@@ -45,6 +45,24 @@ const jsonLd = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     
+    <!-- Anti-FOUC Theme Initialization Script -->
+    <script is:inline>
+      (function() {
+        const storedTheme = localStorage.getItem('mexxtz-theme');
+        if (storedTheme === 'light') {
+          document.documentElement.classList.add('light');
+          document.documentElement.classList.remove('dark');
+        } else if (storedTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('light');
+        } else {
+          // Default to dark as primary brand identity
+          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('light');
+        }
+      })();
+    </script>
+
     <!-- SEO Primary Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
@@ -77,10 +95,10 @@ const jsonLd = {
       rel="stylesheet"
     />
   </head>
-  <body class="bg-[#06080d] text-[#f8fafc] font-sans antialiased relative selection:bg-cyan-500/20 selection:text-white tech-grid-pattern">
+  <body class="bg-[var(--bg-main)] text-[var(--text-primary)] font-sans antialiased relative selection:bg-cyan-500/20 selection:text-white tech-grid-pattern transition-colors duration-300">
     {/* Ambient radial glows */}
-    <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] bg-gradient-to-b from-cyan-500/10 via-blue-600/5 to-transparent blur-[120px] pointer-events-none -z-10" />
-    <div className="fixed top-[40%] right-[-100px] w-[500px] h-[400px] bg-violet-600/5 blur-[140px] pointer-events-none -z-10" />
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] bg-gradient-to-b from-cyan-500/10 via-blue-600/5 to-transparent blur-[120px] pointer-events-none -z-10 dark:opacity-100 opacity-60"></div>
+    <div class="fixed top-[40%] right-[-100px] w-[500px] h-[400px] bg-violet-600/5 blur-[140px] pointer-events-none -z-10 dark:opacity-100 opacity-40"></div>
 
     <Navbar />
 

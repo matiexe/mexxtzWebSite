@@ -4,21 +4,21 @@ import { SITE_CONFIG } from '../../config/site';
 
 <header
   id="main-navbar"
-  class="sticky top-0 z-40 w-full transition-all duration-300 border-b border-white/[0.06] bg-[#06080d]/80 backdrop-blur-xl"
+  class="sticky top-0 z-40 w-full transition-all duration-300 border-b border-[var(--border-subtle)] bg-[var(--header-bg)] backdrop-blur-xl"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
     <!-- Brand Logo -->
     <a href="#inicio" class="flex items-center space-x-3 group">
-      <div class="w-9 h-9 rounded-lg bg-[#0a1122] border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:border-cyan-400/80 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all">
+      <div class="w-9 h-9 rounded-lg bg-[var(--bg-surface-elevated)] border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:border-cyan-400/80 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all">
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 19V5l8 9 8-9v14" />
         </svg>
       </div>
       <div class="flex flex-col">
-        <span class="font-mono font-bold text-base sm:text-lg tracking-tight text-white group-hover:text-cyan-300 transition-colors">
-          mexxtz<span class="text-cyan-400">.dev</span>
+        <span class="font-mono font-bold text-base sm:text-lg tracking-tight text-[var(--text-primary)] group-hover:text-cyan-500 transition-colors">
+          mexxtz<span class="text-cyan-500">.dev</span>
         </span>
-        <span class="text-[9px] font-mono text-slate-500 tracking-wider -mt-1 hidden sm:block">STUDIO & ENGINEERING</span>
+        <span class="text-[9px] font-mono text-[var(--text-muted)] tracking-wider -mt-1 hidden sm:block">STUDIO & ENGINEERING</span>
       </div>
     </a>
 
@@ -27,15 +27,32 @@ import { SITE_CONFIG } from '../../config/site';
       {SITE_CONFIG.navLinks.map((link) => (
         <a
           href={link.href}
-          class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all"
+          class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-black/5 dark:hover:bg-white/[0.04] transition-all"
         >
           {link.label}
         </a>
       ))}
     </nav>
 
-    <!-- Header Actions -->
+    <!-- Header Actions (Desktop) -->
     <div class="hidden sm:flex items-center space-x-3">
+      <!-- Theme Toggle Button -->
+      <button
+        id="theme-toggle-btn"
+        type="button"
+        aria-label="Cambiar tema claro u oscuro"
+        class="p-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-cyan-500/40 transition-all cursor-pointer"
+      >
+        <!-- Sun Icon (shows in dark mode to switch to light) -->
+        <svg id="theme-icon-sun" class="w-4 h-4 hidden dark:block text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <!-- Moon Icon (shows in light mode to switch to dark) -->
+        <svg id="theme-icon-moon" class="w-4 h-4 block dark:hidden text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+
       <a
         href="#contacto"
         class="relative inline-flex items-center justify-center px-4 py-2 rounded-xl text-xs font-semibold text-slate-950 bg-gradient-to-r from-cyan-400 to-cyan-300 hover:from-cyan-300 hover:to-cyan-200 transition-all shadow-md shadow-cyan-950/40 hover:shadow-cyan-500/20 hover:scale-[1.02] active:scale-[0.98]"
@@ -44,19 +61,34 @@ import { SITE_CONFIG } from '../../config/site';
       </a>
     </div>
 
-    <!-- Mobile Menu Button -->
+    <!-- Mobile Menu Button & Mobile Theme Toggle -->
     <div class="flex lg:hidden items-center space-x-2">
+      <button
+        id="theme-toggle-mobile"
+        type="button"
+        aria-label="Cambiar tema claro u oscuro"
+        class="p-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-secondary)]"
+      >
+        <svg class="w-4 h-4 hidden dark:block text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg class="w-4 h-4 block dark:hidden text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+
       <a
         href="#contacto"
         class="text-[11px] font-semibold px-3 py-1.5 rounded-lg bg-cyan-400 text-slate-950 sm:hidden"
       >
         Presupuesto
       </a>
+
       <button
         id="mobile-menu-toggle"
         type="button"
         aria-label="Abrir menú"
-        class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.05] transition-colors"
+        class="p-2 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-black/5 dark:hover:bg-white/[0.05] transition-colors"
       >
         <svg id="menu-icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
@@ -71,21 +103,21 @@ import { SITE_CONFIG } from '../../config/site';
   <!-- Mobile Drawer Menu -->
   <div
     id="mobile-menu-drawer"
-    class="hidden lg:hidden px-4 pt-2 pb-6 border-b border-white/10 bg-[#070b16]/95 backdrop-blur-2xl"
+    class="hidden lg:hidden px-4 pt-2 pb-6 border-b border-[var(--border-subtle)] bg-[var(--bg-surface)] backdrop-blur-2xl"
   >
     <div class="space-y-1">
       {SITE_CONFIG.navLinks.map((link) => (
         <a
           href={link.href}
-          class="mobile-nav-link block px-3 py-2.5 rounded-lg text-sm font-mono text-slate-300 hover:text-cyan-300 hover:bg-white/[0.04]"
+          class="mobile-nav-link block px-3 py-2.5 rounded-lg text-sm font-mono text-[var(--text-secondary)] hover:text-cyan-500 hover:bg-black/5 dark:hover:bg-white/[0.04]"
         >
           {link.label}
         </a>
       ))}
-      <div class="pt-4 mt-2 border-t border-white/10">
+      <div class="pt-4 mt-2 border-t border-[var(--border-subtle)]">
         <a
           href="#contacto"
-          class="mobile-nav-link w-full flex items-center justify-center py-3 rounded-xl bg-cyan-400 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-950"
+          class="mobile-nav-link w-full flex items-center justify-center py-3 rounded-xl bg-cyan-400 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-950/20"
         >
           Solicitar presupuesto
         </a>
@@ -95,6 +127,29 @@ import { SITE_CONFIG } from '../../config/site';
 </header>
 
 <script>
+  // Theme Toggle Functionality
+  function setupThemeToggle() {
+    const desktopBtn = document.getElementById('theme-toggle-btn');
+    const mobileBtn = document.getElementById('theme-toggle-mobile');
+
+    function toggleTheme() {
+      const isLight = document.documentElement.classList.contains('light');
+      if (isLight) {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('mexxtz-theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        localStorage.setItem('mexxtz-theme', 'light');
+      }
+    }
+
+    desktopBtn?.addEventListener('click', toggleTheme);
+    mobileBtn?.addEventListener('click', toggleTheme);
+  }
+
+  // Mobile Menu Drawer Functionality
   const toggleBtn = document.getElementById('mobile-menu-toggle');
   const drawer = document.getElementById('mobile-menu-drawer');
   const iconOpen = document.getElementById('menu-icon-open');
@@ -126,9 +181,11 @@ import { SITE_CONFIG } from '../../config/site';
   // Dynamic scroll styling
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
-      navbar?.classList.add('bg-[#06080d]/95', 'shadow-2xl', 'border-white/10');
+      navbar?.classList.add('shadow-xl', 'border-b');
     } else {
-      navbar?.classList.remove('bg-[#06080d]/95', 'shadow-2xl');
+      navbar?.classList.remove('shadow-xl');
     }
   });
+
+  setupThemeToggle();
 </script>

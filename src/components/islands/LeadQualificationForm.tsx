@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle2, AlertCircle, ArrowRight, ShieldCheck, Sparkles, MessageSquare } from 'lucide-react';
+import { CheckCircle2, AlertCircle, ArrowRight, ShieldCheck, Sparkles, MessageSquare } from 'lucide-react';
 import { SITE_CONFIG } from '../../config/site';
 
 interface FormState {
@@ -95,21 +95,21 @@ export default function LeadQualificationForm() {
 
   if (submitted) {
     return (
-      <div className="relative p-8 rounded-2xl border border-cyan-500/30 bg-[#090e1c] text-center shadow-2xl overflow-hidden">
+      <div className="relative p-8 rounded-2xl border border-cyan-500/30 bg-[var(--bg-card)] text-center shadow-2xl overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
         
-        <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+        <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-500">
           <CheckCircle2 className="w-8 h-8" />
         </div>
 
-        <h3 className="text-2xl font-bold text-white mb-2">¡Solicitud recibida con éxito!</h3>
-        <p className="text-slate-400 text-sm max-w-md mx-auto mb-6">
+        <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-2">¡Solicitud recibida con éxito!</h3>
+        <p className="text-[var(--text-secondary)] text-sm max-w-md mx-auto mb-6">
           Guardamos tus datos y requerimientos. Analizaremos el alcance técnico y te responderemos en menos de 24 horas hábiles.
         </p>
 
         {createdLeadId && (
-          <div className="inline-block px-3 py-1.5 rounded bg-white/[0.04] border border-white/10 font-mono text-xs text-slate-400 mb-6">
-            ID de Referencia: <span className="text-cyan-400 font-bold">{createdLeadId}</span>
+          <div className="inline-block px-3 py-1.5 rounded bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] font-mono text-xs text-[var(--text-secondary)] mb-6">
+            ID de Referencia: <span className="text-cyan-500 font-bold">{createdLeadId}</span>
           </div>
         )}
 
@@ -118,7 +118,7 @@ export default function LeadQualificationForm() {
             href={getWhatsAppLeadLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm transition-colors shadow-lg shadow-emerald-950/40"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm transition-colors shadow-lg shadow-emerald-950/20"
           >
             <MessageSquare className="w-4 h-4 mr-2" />
             Avisar por WhatsApp (Opcional)
@@ -137,7 +137,7 @@ export default function LeadQualificationForm() {
                 urgency: '1–2 semanas',
               });
             }}
-            className="w-full sm:w-auto px-6 py-3 rounded-lg border border-white/10 text-slate-300 hover:text-white hover:bg-white/5 text-sm transition-colors font-mono"
+            className="w-full sm:w-auto px-6 py-3 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-elevated)] text-sm transition-colors font-mono cursor-pointer"
           >
             Nueva Consulta
           </button>
@@ -147,20 +147,20 @@ export default function LeadQualificationForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="relative rounded-2xl border border-white/10 bg-[#090e1c]/90 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
+    <form onSubmit={handleSubmit} className="relative rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-6 sm:p-8 shadow-2xl backdrop-blur-md">
       {/* Blueprint header markers */}
-      <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/10 font-mono text-xs text-slate-400">
-        <span className="flex items-center text-cyan-400">
+      <div className="flex items-center justify-between pb-4 mb-6 border-b border-[var(--border-subtle)] font-mono text-xs text-[var(--text-muted)]">
+        <span className="flex items-center text-cyan-500 font-semibold">
           <Sparkles className="w-3.5 h-3.5 mr-1.5" />
           CALIFICADOR DE ALCANCE Y PRESUPUESTO
         </span>
-        <span className="text-slate-500">FORM_V1.2</span>
+        <span className="text-[var(--text-muted)]">FORM_V1.2</span>
       </div>
 
       <div className="space-y-6">
         {/* 1. Selección de servicio */}
         <div>
-          <label className="block text-xs font-mono uppercase text-slate-300 mb-2">
+          <label className="block text-xs font-mono uppercase text-[var(--text-muted)] mb-2">
             1. ¿Qué tipo de solución necesitás?
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -169,10 +169,10 @@ export default function LeadQualificationForm() {
                 type="button"
                 key={srv}
                 onClick={() => setFormData({ ...formData, service_type: srv })}
-                className={`px-3 py-2 text-xs rounded-lg border transition-all text-left font-medium ${
+                className={`px-3 py-2 text-xs rounded-lg border transition-all text-left font-medium cursor-pointer ${
                   formData.service_type === srv
-                    ? 'border-cyan-400 bg-cyan-950/40 text-cyan-300 shadow-sm shadow-cyan-950'
-                    : 'border-white/5 bg-white/[0.02] text-slate-400 hover:bg-white/[0.04] hover:text-slate-200'
+                    ? 'border-cyan-500 bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 shadow-sm'
+                    : 'border-[var(--border-subtle)] bg-[var(--bg-surface-elevated)] text-[var(--text-secondary)] hover:border-cyan-500/40 hover:text-[var(--text-primary)]'
                 }`}
               >
                 {srv}
@@ -180,7 +180,7 @@ export default function LeadQualificationForm() {
             ))}
           </div>
           {errors.service_type && (
-            <p className="mt-1 text-xs text-red-400 flex items-center">
+            <p className="mt-1 text-xs text-red-500 flex items-center">
               <AlertCircle className="w-3 h-3 mr-1" /> {errors.service_type[0]}
             </p>
           )}
@@ -188,7 +188,7 @@ export default function LeadQualificationForm() {
 
         {/* 2. Detalle del proyecto */}
         <div>
-          <label htmlFor="project_details" className="block text-xs font-mono uppercase text-slate-300 mb-2">
+          <label htmlFor="project_details" className="block text-xs font-mono uppercase text-[var(--text-muted)] mb-2">
             2. Contanos sobre tu proyecto o problema a resolver
           </label>
           <textarea
@@ -197,10 +197,10 @@ export default function LeadQualificationForm() {
             value={formData.project_details}
             onChange={(e) => setFormData({ ...formData, project_details: e.target.value })}
             placeholder="Ej: Necesitamos automatizar los pedidos que llegan por WhatsApp y guardarlos en una base de datos con panel de control..."
-            className="w-full px-4 py-3 rounded-lg bg-black/40 border border-white/10 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+            className="w-full px-4 py-3 rounded-lg bg-[var(--input-bg)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-slate-400 text-sm focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"
           />
           {errors.project_details && (
-            <p className="mt-1 text-xs text-red-400 flex items-center">
+            <p className="mt-1 text-xs text-red-500 flex items-center">
               <AlertCircle className="w-3 h-3 mr-1" /> {errors.project_details[0]}
             </p>
           )}
@@ -209,16 +209,16 @@ export default function LeadQualificationForm() {
         {/* 3. Presupuesto estimado & Urgencia */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-mono uppercase text-slate-300 mb-2">
+            <label className="block text-xs font-mono uppercase text-[var(--text-muted)] mb-2">
               3. Presupuesto aproximado
             </label>
             <select
               value={formData.budget_range}
               onChange={(e) => setFormData({ ...formData, budget_range: e.target.value })}
-              className="w-full px-3 py-2.5 rounded-lg bg-black/40 border border-white/10 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 font-mono"
+              className="w-full px-3 py-2.5 rounded-lg bg-[var(--input-bg)] border border-[var(--border-subtle)] text-[var(--text-primary)] text-sm focus:outline-none focus:border-cyan-500 font-mono"
             >
               {budgets.map((b) => (
-                <option key={b} value={b} className="bg-slate-900 text-white">
+                <option key={b} value={b} className="bg-[var(--bg-surface)] text-[var(--text-primary)]">
                   {b}
                 </option>
               ))}
@@ -226,16 +226,16 @@ export default function LeadQualificationForm() {
           </div>
 
           <div>
-            <label className="block text-xs font-mono uppercase text-slate-300 mb-2">
+            <label className="block text-xs font-mono uppercase text-[var(--text-muted)] mb-2">
               4. ¿Cuándo necesitás tenerlo?
             </label>
             <select
               value={formData.urgency}
               onChange={(e) => setFormData({ ...formData, urgency: e.target.value })}
-              className="w-full px-3 py-2.5 rounded-lg bg-black/40 border border-white/10 text-slate-200 text-sm focus:outline-none focus:border-cyan-400 font-mono"
+              className="w-full px-3 py-2.5 rounded-lg bg-[var(--input-bg)] border border-[var(--border-subtle)] text-[var(--text-primary)] text-sm focus:outline-none focus:border-cyan-500 font-mono"
             >
               {urgencies.map((u) => (
-                <option key={u} value={u} className="bg-slate-900 text-white">
+                <option key={u} value={u} className="bg-[var(--bg-surface)] text-[var(--text-primary)]">
                   {u}
                 </option>
               ))}
@@ -244,8 +244,8 @@ export default function LeadQualificationForm() {
         </div>
 
         {/* 4. Datos de contacto */}
-        <div className="pt-2 border-t border-white/10">
-          <label className="block text-xs font-mono uppercase text-slate-300 mb-3">
+        <div className="pt-2 border-t border-[var(--border-subtle)]">
+          <label className="block text-xs font-mono uppercase text-[var(--text-muted)] mb-3">
             5. Datos para enviarte la propuesta
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -255,10 +255,10 @@ export default function LeadQualificationForm() {
                 placeholder="Tu Nombre"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-lg bg-black/40 border border-white/10 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-cyan-400 transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-lg bg-[var(--input-bg)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-slate-400 text-sm focus:outline-none focus:border-cyan-500 transition-colors"
               />
               {errors.name && (
-                <p className="mt-1 text-[11px] text-red-400">{errors.name[0]}</p>
+                <p className="mt-1 text-[11px] text-red-500">{errors.name[0]}</p>
               )}
             </div>
 
@@ -268,10 +268,10 @@ export default function LeadQualificationForm() {
                 placeholder="Email de contacto"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-lg bg-black/40 border border-white/10 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-cyan-400 transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-lg bg-[var(--input-bg)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-slate-400 text-sm focus:outline-none focus:border-cyan-500 transition-colors"
               />
               {errors.email && (
-                <p className="mt-1 text-[11px] text-red-400">{errors.email[0]}</p>
+                <p className="mt-1 text-[11px] text-red-500">{errors.email[0]}</p>
               )}
             </div>
 
@@ -281,10 +281,10 @@ export default function LeadQualificationForm() {
                 placeholder="WhatsApp (con cód. país)"
                 value={formData.whatsapp}
                 onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-lg bg-black/40 border border-white/10 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-cyan-400 transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-lg bg-[var(--input-bg)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-slate-400 text-sm focus:outline-none focus:border-cyan-500 transition-colors"
               />
               {errors.whatsapp && (
-                <p className="mt-1 text-[11px] text-red-400">{errors.whatsapp[0]}</p>
+                <p className="mt-1 text-[11px] text-red-500">{errors.whatsapp[0]}</p>
               )}
             </div>
           </div>
@@ -295,7 +295,7 @@ export default function LeadQualificationForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full relative group overflow-hidden px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-sm transition-all duration-200 shadow-lg shadow-cyan-950/50 flex items-center justify-center space-x-2 disabled:opacity-50"
+            className="w-full relative group overflow-hidden px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-sm transition-all duration-200 shadow-lg shadow-cyan-950/20 flex items-center justify-center space-x-2 disabled:opacity-50 cursor-pointer"
           >
             {loading ? (
               <span className="font-mono text-xs">Procesando y guardando lead...</span>
@@ -308,8 +308,8 @@ export default function LeadQualificationForm() {
           </button>
         </div>
 
-        <div className="flex items-center justify-center space-x-2 text-[11px] text-slate-500 font-mono">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+        <div className="flex items-center justify-center space-x-2 text-[11px] text-[var(--text-muted)] font-mono">
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
           <span>Sin spam. Presupuesto sin compromiso ni costos ocultos.</span>
         </div>
       </div>
