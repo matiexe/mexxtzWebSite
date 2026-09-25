@@ -1,0 +1,6 @@
+# robots.txt for https://mexxtz.dev
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://mexxtz.dev/sitemap.xml
