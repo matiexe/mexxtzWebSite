@@ -6,10 +6,10 @@ Sitio web oficial de **mexxtz.dev**: estudio tecnológico boutique especializado
 
 ## 🛠️ Stack Tecnológico
 
-- **Framework**: [Astro 5+](https://astro.build) (Arquitectura híbrida / Server-rendered con `@astrojs/node`)
+- **Framework**: [Astro 5+](https://astro.build) con adaptador oficial `@astrojs/vercel`
 - **UI Islands**: [React 19](https://react.dev) para componentes interactivos de alta fidelidad
 - **Estilos**: [Tailwind CSS v4](https://tailwindcss.com) + micro-glows y paleta Obsidian Dark
-- **Base de Datos**: [LibSQL / SQLite](https://github.com/tursodatabase/libsql-client-ts) (Persistencia local en `leads.db`, compatible con Turso serverless)
+- **Base de Datos**: [LibSQL / SQLite](https://github.com/tursodatabase/libsql-client-ts) (local `leads.db` en desarrollo, y compatible con [Turso](https://turso.tech) en Vercel)
 - **Validación**: [Zod](https://zod.dev)
 - **Iconografía**: [Lucide React](https://lucide.dev)
 
@@ -49,7 +49,7 @@ src/
 ├── config/
 │   └── site.ts                      # Metadatos, WhatsApp, redes, proyectos y precios
 ├── lib/
-│   ├── db.ts                        # Conexión SQLite/LibSQL y tabla de leads
+│   ├── db.ts                        # Conexión SQLite/LibSQL y tabla de leads (con fallback Vercel)
 │   └── validation.ts                # Validación Zod y cálculo de lead score
 └── pages/
     ├── index.astro                  # Landing page completa
@@ -62,7 +62,7 @@ src/
 
 ---
 
-## 🚀 Inicio Rápido
+## 🚀 Inicio Rápido Local
 
 ### 1. Instalar dependencias
 ```bash
@@ -78,8 +78,46 @@ La aplicación iniciará en `http://localhost:4321`.
 ### 3. Compilar para producción
 ```bash
 npm run build
-npm start
 ```
+
+---
+
+## ☁️ Despliegue en Vercel
+
+El proyecto ya está preconfigurado con el adaptador oficial `@astrojs/vercel`.
+
+### Opción 1: Conectar con GitHub (Recomendada)
+1. Creá un repositorio en GitHub (ej. `mexxtzSitioWeb`).
+2. Hacé push de este código:
+   ```bash
+   git remote add origin https://github.com/TU_USUARIO/TU_REPO.git
+   git branch -M main
+   git push -u origin main
+   ```
+3. Ingresá a [vercel.com](https://vercel.com) e importá el repositorio.
+4. Vercel detectará **Astro** automáticamente. Hacé clic en **Deploy**.
+
+### Opción 2: Despliegue directo con Vercel CLI
+```bash
+npm i -g vercel
+vercel
+```
+
+---
+
+## 🗄️ Persistencia de Leads en Producción (Turso / LibSQL)
+
+En desarrollo local, el sitio guarda automáticamente en el archivo `leads.db`. 
+
+Dado que en Vercel las funciones Serverless tienen sistema de archivos efímero, podés conectar una base de datos SQLite en la nube gratuita con **Turso** en 2 minutos:
+1. Registrate gratis en [turso.tech](https://turso.tech).
+2. Creá una base de datos (por ejemplo `mexxtz-leads`).
+3. Obtené la URL y el token.
+4. En Vercel (`Project Settings > Environment Variables`), agregá:
+   - `TURSO_DATABASE_URL` = `libsql://mexxtz-leads-tuusuario.turso.io`
+   - `TURSO_AUTH_TOKEN` = `tu-token-aqui`
+
+*(Opcional: Si querés que cada lead te envíe un mensaje a Discord o Slack, agregá la variable `LEADS_WEBHOOK_URL`).*
 
 ---
 
@@ -87,5 +125,3 @@ npm start
 
 Toda la información de contacto, número de WhatsApp y enlaces a perfiles está centralizada en:
 👉 `src/config/site.ts`
-
-Podés actualizar tu número de WhatsApp oficial simplemente modificando `whatsappNumber` en dicho archivo.
