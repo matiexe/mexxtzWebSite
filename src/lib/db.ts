@@ -1,31 +1,57 @@
-import { createClient } from '@libsql/client';
+import { createClient, type Client } from '@libsql/client';
 
-// Determina la URL de la base de datos de manera resiliente:
-// 1. Si existe TURSO_DATABASE_URL o DATABASE_URL, se conecta a la base en la nube.
-// 2. Si está en Vercel sin base externa, escribe temporalmente en /tmp/leads.db (sistema de archivos de funciones serverless).
-// 3. En local escribe en file:leads.db.
-const getDatabaseUrl = () => {
-  if (process.env.DATABASE_URL) return process.env.DATABASE_URL;
-  if (process.env.TURSO_DATABASE_URL) return process.env.TURSO_DATABASE_URL;
-  if (process.env.VERCEL) return 'file:/tmp/leads.db';
-  return 'file:leads.db';
-};
-
-const url = getDatabaseUrl();
-const authToken = process.env.DATABASE_AUTH_TOKEN || process.env.TURSO_AUTH_TOKEN;
-
-export const db = createClient({
-  url,
-  authToken,
-});
-
+let _client: Client | null = null;
 let isInitialized = false;
+
+function getDatabaseConfig(): { url: string; authToken?: string } {
+  const url =
+    process.env.TURSO_DATABASE_URL ||
+    process.env.DATABASE_URL ||
+    (typeof import.meta !== 'undefined' && (import.meta as any).env
+      ? (import.meta as any).env.TURSO_DATABASE_URL || (import.meta as any).env.DATABASE_URL
+      : undefined);
+
+  const authToken =
+    process.env.TURSO_AUTH_TOKEN ||
+    process.env.DATABASE_AUTH_TOKEN ||
+    (typeof import.meta !== 'undefined' && (import.meta as any).env
+      ? (import.meta as any).env.TURSO_AUTH_TOKEN || (import.meta as any).env.DATABASE_AUTH_TOKEN
+      : undefined);
+
+  if (url) {
+    return { url, authToken };
+  }
+
+  // Si está en entorno Vercel sin Turso configurado, usa SQLite en /tmp (efímero)
+  if (process.env.VERCEL) {
+    return { url: 'file:/tmp/leads.db' };
+  }
+
+  // Por defecto en local usa archivo leads.db
+  return { url: 'file:leads.db' };
+}
+
+export function getDb(): Client {
+  if (!_client) {
+    const config = getDatabaseConfig();
+    _client = createClient(config);
+  }
+  return _client;
+}
+
+// Proxy para compatibilidad hacia atrás
+export const db = new Proxy({} as Client, {
+  get(_target, prop) {
+    return (getDb() as any)[prop];
+  },
+});
 
 export async function initDb() {
   if (isInitialized) return;
 
   try {
-    await db.execute(`
+    const client = getDb();
+    await client.execute(`
       CREATE TABLE IF NOT EXISTS leads (
         id TEXT PRIMARY KEY,
         name TEXT NOT NULL,
