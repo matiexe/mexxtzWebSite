@@ -1,33 +1,11 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    /* Dark Mode Defaults (Obsidian High-Tech) */
-    --bg-main: #06080d;
-    --bg-surface: #080d19;
-    --bg-surface-elevated: #0c1424;
-    --bg-card: rgba(8, 13, 25, 0.88);
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-highlight: rgba(34, 211, 238, 0.3);
-    --cyan-accent: #06b6d4;
-    --cyan-glow: #22d3ee;
-    --violet-accent: #8b5cf6;
-    --blue-accent: #3b82f6;
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
-    --grid-line: rgba(255, 255, 255, 0.03);
-    --dots-color: rgba(255, 255, 255, 0.06);
-    --code-bg: #060911;
-    --input-bg: rgba(0, 0, 0, 0.4);
-    --header-bg: rgba(6, 8, 13, 0.85);
-    --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-    --scrollbar-track: #06080d;
-    --scrollbar-thumb: #1a2336;
-  }
+@custom-variant dark (&:where(.dark, .dark *));
 
+@layer base {
+  :root,
   html.light {
-    /* Light Mode (Engineering Paper / Technical Blueprint) */
+    /* Light Mode Defaults (Engineering Paper / Technical Blueprint) */
     --bg-main: #f8fafc;
     --bg-surface: #ffffff;
     --bg-surface-elevated: #f1f5f9;
@@ -49,6 +27,31 @@
     --shadow-card: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
     --scrollbar-track: #f8fafc;
     --scrollbar-thumb: #cbd5e1;
+  }
+
+  html.dark {
+    /* Dark Mode (Obsidian High-Tech) */
+    --bg-main: #06080d;
+    --bg-surface: #080d19;
+    --bg-surface-elevated: #0c1424;
+    --bg-card: rgba(8, 13, 25, 0.88);
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-highlight: rgba(34, 211, 238, 0.3);
+    --cyan-accent: #06b6d4;
+    --cyan-glow: #22d3ee;
+    --violet-accent: #8b5cf6;
+    --blue-accent: #3b82f6;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --grid-line: rgba(255, 255, 255, 0.03);
+    --dots-color: rgba(255, 255, 255, 0.06);
+    --code-bg: #060911;
+    --input-bg: rgba(0, 0, 0, 0.4);
+    --header-bg: rgba(6, 8, 13, 0.85);
+    --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    --scrollbar-track: #06080d;
+    --scrollbar-thumb: #1a2336;
   }
 
   html {

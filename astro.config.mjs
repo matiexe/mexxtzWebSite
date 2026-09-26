@@ -7,9 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://mexxtz.dev',
   output: 'server',
-  adapter: vercel({
-    webAnalytics: { enabled: true },
-  }),
+  adapter: vercel(),
   integrations: [react()],
   vite: {
     plugins: [tailwindcss()],

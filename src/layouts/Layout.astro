@@ -4,6 +4,7 @@ import { SITE_CONFIG } from '../config/site';
 import Navbar from '../components/layout/Navbar.astro';
 import Footer from '../components/layout/Footer.astro';
 import ChatAgentWidget from '../components/islands/ChatAgentWidget';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   title?: string;
@@ -38,7 +39,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="es" class="scroll-smooth">
+<html lang="es" class="scroll-smooth light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,16 +50,13 @@ const jsonLd = {
     <script is:inline>
       (function() {
         const storedTheme = localStorage.getItem('mexxtz-theme');
-        if (storedTheme === 'light') {
-          document.documentElement.classList.add('light');
-          document.documentElement.classList.remove('dark');
-        } else if (storedTheme === 'dark') {
+        if (storedTheme === 'dark') {
           document.documentElement.classList.add('dark');
           document.documentElement.classList.remove('light');
         } else {
-          // Default to dark as primary brand identity
-          document.documentElement.classList.add('dark');
-          document.documentElement.classList.remove('light');
+          // Default to light mode
+          document.documentElement.classList.add('light');
+          document.documentElement.classList.remove('dark');
         }
       })();
     </script>
@@ -116,5 +114,8 @@ const jsonLd = {
 
     {/* Floating AI Assistant Island */}
     <ChatAgentWidget client:idle />
+
+    {/* Vercel Web Analytics */}
+    <Analytics />
   </body>
 </html>
