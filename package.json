@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "test:db": "node scripts/test-turso.mjs",
+    "leads": "node scripts/view-leads.mjs",
     "astro": "astro"
   },
   "dependencies": {
