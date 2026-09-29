@@ -96,7 +96,8 @@ export async function saveLead(lead: LeadRecord) {
   `;
 
   try {
-    await db.execute({
+    const client = getDb();
+    await client.execute({
       sql: query,
       args: [
         lead.id,
@@ -112,8 +113,10 @@ export async function saveLead(lead: LeadRecord) {
         lead.created_at,
       ],
     });
-  } catch (err) {
-    console.error('Error inserting lead to database:', err);
+    console.log(`[DB SUCCESS] Lead ${lead.id} guardado correctamente.`);
+  } catch (err: any) {
+    console.error('[DB ERROR] Error al insertar lead en la base de datos:', err);
+    throw new Error(`Error en base de datos: ${err.message}`);
   }
 
   // Notificación opcional por webhook (Discord / Telegram / Slack) si está configurado en Vercel

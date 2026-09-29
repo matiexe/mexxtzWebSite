@@ -41,12 +41,13 @@ export const POST: APIRoute = async ({ request }) => {
       }),
       { status: 201, headers: { 'Content-Type': 'application/json' } }
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error processing lead:', error);
     return new Response(
       JSON.stringify({
         success: false,
         message: 'Ocurrió un error al procesar tu solicitud. Por favor intenta nuevamente o contactanos por WhatsApp.',
+        error: error?.message || 'Error desconocido al guardar en base de datos',
       }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
